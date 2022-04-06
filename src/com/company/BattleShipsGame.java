@@ -18,7 +18,7 @@ public class BattleShipsGame {
         char destroyer2 = 'd';
         int shipNumber = 3;
 
-        int gameBoardLenght = 10;
+        int gameBoardLenght = 5;
         int battleShipLenght = 5;
 
         int destroyer1Lenght = 4;
@@ -71,24 +71,29 @@ public class BattleShipsGame {
     private static int[] getUserGuess(int gameBoardLenght) {
         int row;
         int col;
+
         do {
             System.out.print("Row: ");
             row = new Scanner(System.in).nextInt();
         } while (row < 1 || row > gameBoardLenght + 1);
+
         do {
             System.out.print("Column: ");
             col = new Scanner(System.in).nextInt();
         } while (col < 1 || col >gameBoardLenght + 1);
+
         return new int[]{row - 1, col - 1};
     }
 
     private static void printGameBoard(char[][] gameBoard, char water, char ship) {
         int gameBoardLenght = gameBoard.length;
         System.out.print("  ");    //two spaces to align the text
+
         for (int i = 0; i < gameBoardLenght; i++){
             System.out.print(i + 1 + " ");
         }
         System.out.println();
+
         for (int row = 0; row < gameBoardLenght; row++){
             System.out.print(row + 1 + " ");
             for (int col = 0; col < gameBoardLenght; col++){     // col = collumn
@@ -112,6 +117,7 @@ public class BattleShipsGame {
     private static char[][] placeShips(char[][] gameBoard, char water, char battleShip, char destroyer1, char destroyer2, int shipNumber, char ship) {
         int placedShips = 0;
         int gameboardLenght = gameBoard.length;
+
         while (placedShips < shipNumber){
             int [] location = generateShipLocation(gameboardLenght);
             char possibilityOfPlacment = gameBoard[location[0]][location[1]];
@@ -124,6 +130,7 @@ public class BattleShipsGame {
 
     private static int[] generateShipLocation(int gameboardLenght) {
         int [] location = new int [2];
+
         for (int i = 0; i < location.length; i++){
             location[i] = new Random().nextInt(gameboardLenght);
         } return location;
