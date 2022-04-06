@@ -16,13 +16,15 @@ public class BattleShipsGame {
         char battleShip = 'B';
         char destroyer1 = 'D';
         char destroyer2 = 'd';
+
         int shipNumber = 3;
 
         int gameBoardLenght = 5;
-        int battleShipLenght = 5;
 
-        int destroyer1Lenght = 4;
-        int destroyer2Lenght = 4;
+       // int battleShipLenght = 5; leter
+
+      //  int destroyer1Lenght = 4;
+      //  int destroyer2Lenght = 4;
 
 
         char [][] gameBoard = createGameboard(gameBoardLenght, hit, miss, water, battleShip, destroyer1, destroyer2, shipNumber, ship);
@@ -127,7 +129,6 @@ public class BattleShipsGame {
             }
         } return gameBoard;
     }
-
     private static int[] generateShipLocation(int gameboardLenght) {
         int [] location = new int [2];
 
