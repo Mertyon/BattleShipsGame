@@ -18,7 +18,7 @@ public class BattleShipsGame {
         char destroyer2 = 'd';
         int [] test  = {'b', 'b', 'b', 'b'};
 
-        int shipNumber = 200;
+        int shipNumber = 4;
         int gameBoardLenght = 10;
 
        // int battleShipLenght = 5; leter
