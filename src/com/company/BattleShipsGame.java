@@ -61,7 +61,7 @@ public class BattleShipsGame {
         } else if (target == water){
             target = miss;
             message = "Miss!";
-            
+
         } else {
             message = "Already hit!";
         }
