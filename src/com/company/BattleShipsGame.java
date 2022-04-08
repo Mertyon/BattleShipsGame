@@ -1,6 +1,6 @@
+
 package com.company;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,23 +16,22 @@ public class BattleShipsGame {
         char battleShip = 'B';
         char destroyer1 = 'D';
         char destroyer2 = 'd';
+        int [] test  = {'b', 'b', 'b', 'b'};
 
-        int shipNumber = 3;
-
-        int gameBoardLenght = 5;
+        int shipNumber = 200;
+        int gameBoardLenght = 10;
 
        // int battleShipLenght = 5; leter
-
       //  int destroyer1Lenght = 4;
       //  int destroyer2Lenght = 4;
 
 
-        char [][] gameBoard = createGameboard(gameBoardLenght, hit, miss, water, battleShip, destroyer1, destroyer2, shipNumber, ship);
+        char [][] gameBoard = createGameBoard(gameBoardLenght, hit, miss, water, battleShip, destroyer1, destroyer2, shipNumber, ship);
         printGameBoard(gameBoard, water, ship);
         int undetectedShips = shipNumber;
         while(undetectedShips > 0){
             int[] guessLocation = getUserGuess(gameBoardLenght);
-            char locationVievUpdate = evaluateGuessAndGetTarget(guessLocation, gameBoard, water, ship, hit, miss);
+            char locationVievUpdate = evaluateGuessAndGetTarget(guessLocation, gameBoard, water, ship, hit, miss, test);
             if (locationVievUpdate == hit){
                 undetectedShips--;
             }
@@ -50,7 +49,7 @@ public class BattleShipsGame {
 
     }
 
-    private static char evaluateGuessAndGetTarget(int[] guessLocation, char[][] gameBoard, char water, char ship, char hit, char miss) {
+    private static char evaluateGuessAndGetTarget(int[] guessLocation, char[][] gameBoard, char water, char ship, char hit, char miss, int[] test) {
         String message;
         int row = guessLocation[0];
         int col = guessLocation[1];
@@ -88,17 +87,17 @@ public class BattleShipsGame {
     }
 
     private static void printGameBoard(char[][] gameBoard, char water, char ship) {
-        int gameBoardLenght = gameBoard.length;
+        int gameBoardLength = gameBoard.length;
         System.out.print("  ");    //two spaces to align the text
 
-        for (int i = 0; i < gameBoardLenght; i++){
+        for (int i = 0; i < gameBoardLength; i++){
             System.out.print(i + 1 + " ");
         }
         System.out.println();
 
-        for (int row = 0; row < gameBoardLenght; row++){
+        for (int row = 0; row < gameBoardLength; row++){
             System.out.print(row + 1 + " ");
-            for (int col = 0; col < gameBoardLenght; col++){     // col = collumn
+            for (int col = 0; col < gameBoardLength; col++){     // col = collumn
                 char position = gameBoard[row][col];
                 if (position == ship){
                     System.out.print(water + " ");
@@ -108,8 +107,8 @@ public class BattleShipsGame {
         }
     }
 
-    private static char[][] createGameboard(int gameBoardLenght, char hit, char miss, char water, char battleShip, char destroyer1, char destroyer2, int shipNumber, char ship) {
-        char [][] gameBoard = new char[gameBoardLenght][gameBoardLenght];
+    private static char[][] createGameBoard(int gameBoardLength, char hit, char miss, char water, char battleShip, char destroyer1, char destroyer2, int shipNumber, char ship) {
+        char [][] gameBoard = new char[gameBoardLength][gameBoardLength];
         for (char [] row : gameBoard){
             Arrays.fill(row, water);
         } return placeShips(gameBoard, water, battleShip, destroyer1, destroyer2, shipNumber, ship);
@@ -117,18 +116,19 @@ public class BattleShipsGame {
     }
 
     private static char[][] placeShips(char[][] gameBoard, char water, char battleShip, char destroyer1, char destroyer2, int shipNumber, char ship) {
-        int placedShips = 0;
+        int placedDestroyers1 = 0;
         int gameboardLenght = gameBoard.length;
 
-        while (placedShips < shipNumber){
-            int [] location = generateShipLocation(gameboardLenght);
+        while (placedDestroyers1 <4){
+            int[] location = generateShipLocation(gameboardLenght);
             char possibilityOfPlacment = gameBoard[location[0]][location[1]];
             if (possibilityOfPlacment == water){
-                gameBoard[location[0]][location[1]] = ship;;
-                placedShips++;
+                gameBoard[location[0]][location[1]] = destroyer1;
+                placedDestroyers1++;
             }
         } return gameBoard;
     }
+
     private static int[] generateShipLocation(int gameboardLenght) {
         int [] location = new int [2];
 
