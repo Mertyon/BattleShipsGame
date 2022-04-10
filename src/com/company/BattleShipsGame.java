@@ -6,22 +6,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BattleShipsGame {
-
     public static void main(String[] args) {
         char hit = 'X';
         char miss = 'O';
         char water = '~';
         char ship = 's';
-
-
+        char destroyer2 = 'd';
+        System.out.println( );
         char destroyer1 = 'D';
         //char[] test  = {destroyer1, destroyer1, destroyer1, destroyer1};
 
         int shipNumber = 4;
         int gameBoardLenght = 10;
 
-
-        char [][] gameBoard = createGameBoard(gameBoardLenght, water, destroyer1, ship);
+        char [][] gameBoard = createGameBoard(gameBoardLenght, water, destroyer1, ship, destroyer2);
         printGameBoard(gameBoard, water, ship);
         int undetectedShips = shipNumber;
         while(undetectedShips > 0){
@@ -108,31 +106,35 @@ public class BattleShipsGame {
         }
     }
 
-    private static char[][] createGameBoard(int gameBoardLength,char water, char destroyer1, char ship) {
+    private static char[][] createGameBoard(int gameBoardLength,char water, char destroyer1, char ship, char destroyer2) {
         char [][] gameBoard = new char[gameBoardLength][gameBoardLength];
         for (char [] row : gameBoard){
             Arrays.fill(row, water);
-        } return placeShips(gameBoard, water, destroyer1, ship);
+        } return placeShips(gameBoard, water, destroyer1, ship, destroyer2);
 
     }
 
-    private static char[][] placeShips(char[][] gameBoard, char water,char destroyer1, char ship ) {
+    private static char[][] placeShips(char[][] gameBoard, char water,char destroyer1, char ship, char destroyer2 ) {
+        int x = 0;
+        int y = 1;
         int gameBoardLenght = gameBoard.length;
-
         int placedDestroyers1 = 0;
-        while (placedDestroyers1 <4){
-            int[] location = generateShipLocation(gameBoardLenght);
-            char possibilityOfPlacement = gameBoard[location[0]][location[1]];
+        int[] location = generateShipLocation(gameBoardLenght);
+
+        while (placedDestroyers1 < 4){
+            char possibilityOfPlacement = gameBoard[location[x]][location[y]];
             if (possibilityOfPlacement == water){
-                gameBoard[location[0]][location[1]] = destroyer1;
-                placedDestroyers1++;
-            }
+                gameBoard[location[x]][location[y++]]  = destroyer1;
+            }placedDestroyers1++;
         } return gameBoard;
+
+
+
     }
 
     private static int[] generateShipLocation(int gameBoardLenght) {
-        int [] location = new int [2];
 
+        int [] location = new int [5];
         for (int i = 0; i < location.length; i++){
             location[i] = new Random().nextInt(gameBoardLenght);
         } return location;
