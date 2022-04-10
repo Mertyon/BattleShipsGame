@@ -180,7 +180,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/BattleShipsGame.java</url>
-          <line>25</line>
+          <line>33</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
