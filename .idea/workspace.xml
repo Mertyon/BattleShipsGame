@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15196fc9-505d-4527-8e12-53a5ff4042ac" name="Changes" comment="SHEESH">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BattleShipsGame/com/company/BattleShipsGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BattleShipsGame/com/company/BattleShipsGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/BattleShipsGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/BattleShipsGame.java" afterDir="false" />
     </list>
@@ -102,6 +103,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager" selected="Application.BattleShipsGame">
     <configuration name="BattleShipsGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

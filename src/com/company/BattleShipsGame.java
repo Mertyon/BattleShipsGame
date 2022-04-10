@@ -107,22 +107,45 @@ public class BattleShipsGame {
 
     private static char[][] placingDestroyer1(char[][] gameBoard, char water,char destroyer1, char destroyer2) {
         int gameBoardLenght = gameBoard.length;
-        int[] location = generateDestroyer1Location(gameBoardLenght);
+        int [] location1 = generateDestroyer1Location(gameBoardLenght);
+        int [] location2 = generateDestroyer2Location(gameBoardLenght);
+
         int placedDestroyers1 = 0;
+        int placedDestroyers2 = 0;
+        int x = 0;
+        int y = 1;
+
         while (placedDestroyers1 < 4){
-            char possibilityOfPlacement = gameBoard[location[0]][location[1]];
-            if (possibilityOfPlacement == water && possibilityOfPlacement != destroyer1 && possibilityOfPlacement != destroyer2){
-                gameBoard[location[0]][location[1]] = destroyer1;
+            char possibilityOfPlacement1 = gameBoard[location1[x]][location1[y]];
+            if (possibilityOfPlacement1 == water && possibilityOfPlacement1 != destroyer1 && possibilityOfPlacement1 != destroyer2 ){
+                gameBoard[location1[x]][location1[y]] = destroyer1;
             }
             placedDestroyers1++;
-            location[1]++;
-        } return gameBoard;
+            location1[y]++;
+        }
+
+        while (placedDestroyers2 < 4){
+            char possibilityOfPlacement2 = gameBoard[location2[x]][location2[y]];
+            if (possibilityOfPlacement2 == water && possibilityOfPlacement2 != destroyer1 && possibilityOfPlacement2 != destroyer2 ){
+                gameBoard[location2[x]][location2[y]] = destroyer2;
+            }
+            placedDestroyers2++;
+            location2[x]++;
+        }return gameBoard;
+
     }
 
     private static int[] generateDestroyer1Location(int gameBoardLenght) {
-        int [] location = new int [gameBoardLenght];
-        for (int i = 0; i < location.length; i++){
-            location[i] = new Random().nextInt(gameBoardLenght);
-        } return location;
+        int [] locationOfDestroyer1 = new int [4];
+        for (int i = 0; i < locationOfDestroyer1.length; i++){
+            locationOfDestroyer1[i] = new Random().nextInt(gameBoardLenght);
+        } return locationOfDestroyer1;
+    }
+
+    private static int[] generateDestroyer2Location(int gameBoardLenght) {
+        int [] locationOfDestroyer2 = new int [4];
+        for (int i = 0; i < locationOfDestroyer2.length; i++){
+            locationOfDestroyer2[i] = new Random().nextInt(gameBoardLenght);
+        } return locationOfDestroyer2;
     }
 }
