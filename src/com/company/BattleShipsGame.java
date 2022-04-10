@@ -14,7 +14,7 @@ public class BattleShipsGame {
         char destroyer2 = 'd';
         char destroyer1 = 'D';
         System.out.println( );
-        int shipNumber = 4;
+        int shipNumber = 8;
         int gameBoardLenght = 10;
 
         char [][] gameBoard = createGameBoard(gameBoardLenght, water, destroyer1, destroyer2);
@@ -23,7 +23,7 @@ public class BattleShipsGame {
         while(undetectedShips > 0){
             int[] guessLocation = getUserGuess(gameBoardLenght);
             char locationViewUpdate = evaluateGuessAndGetTarget(guessLocation, gameBoard, water, ship, hit, miss, destroyer1, destroyer2);
-            if (locationViewUpdate == hit){
+            if (locationViewUpdate == hit){ // && locationViewUpdate != alreadyHit
                 undetectedShips--;
             }
             gameBoardUpdate(gameBoard, guessLocation, locationViewUpdate);
@@ -44,10 +44,10 @@ public class BattleShipsGame {
         int col = guessLocation[1];
         char target = gameBoard[row][col];
 
-        if (target == ship){
+        if (target == destroyer1){
             target = hit;
             message = "Hit!";
-        } else if (target == destroyer1){
+        } else if (target == destroyer2){
             target = hit;
             message = "Hit!";
         } else if (target == water){
@@ -107,8 +107,8 @@ public class BattleShipsGame {
 
     private static char[][] placingDestroyer1(char[][] gameBoard, char water,char destroyer1, char destroyer2) {
         int gameBoardLenght = gameBoard.length;
-        int [] location1 = generateDestroyer1Location(gameBoardLenght);
-        int [] location2 = generateDestroyer2Location(gameBoardLenght);
+        int [] location1 = generateDestroyer1Location(gameBoardLenght -3);
+        int [] location2 = generateDestroyer2Location(gameBoardLenght -3);
 
         int placedDestroyers1 = 0;
         int placedDestroyers2 = 0;
@@ -118,7 +118,7 @@ public class BattleShipsGame {
         while (placedDestroyers1 < 4){
             char possibilityOfPlacement1 = gameBoard[location1[x]][location1[y]];
             if (possibilityOfPlacement1 == water && possibilityOfPlacement1 != destroyer1 && possibilityOfPlacement1 != destroyer2 ){
-                gameBoard[location1[x]][location1[y]] = destroyer1;
+                    gameBoard[location1[x]][location1[y]] = destroyer1;
             }
             placedDestroyers1++;
             location1[y]++;
@@ -127,7 +127,7 @@ public class BattleShipsGame {
         while (placedDestroyers2 < 4){
             char possibilityOfPlacement2 = gameBoard[location2[x]][location2[y]];
             if (possibilityOfPlacement2 == water && possibilityOfPlacement2 != destroyer1 && possibilityOfPlacement2 != destroyer2 ){
-                gameBoard[location2[x]][location2[y]] = destroyer2;
+                    gameBoard[location2[x]][location2[y]] = destroyer2;
             }
             placedDestroyers2++;
             location2[x]++;
