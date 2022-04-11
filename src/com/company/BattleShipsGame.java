@@ -138,44 +138,60 @@ public class BattleShipsGame {
 
     private static char[][] placingShips(char[][] gameBoard, char water,char destroyer1, char destroyer2, char battleShip) {
         int gameBoardLenght = gameBoard.length;
-        int [] location1 = generateDestroyer1Location(gameBoardLenght -3);
-        int [] location2 = generateDestroyer2Location(gameBoardLenght -3);
-        int [] locationB = generateBattleShipLocation(gameBoardLenght -4);
-
+        int[] location1 = generateDestroyer1Location(gameBoardLenght - 3);
+        int[] location2 = generateDestroyer2Location(gameBoardLenght - 3);
+        int[] locationB = generateBattleShipLocation(gameBoardLenght - 4);
         int placedDestroyer1 = 0;
         int placedDestroyer2 = 0;
         int placedBattleShip = 0;
         int x = 0;
         int y = 1;
 
-        while (placedDestroyer1 < 4){
+        Random r = new Random();
+        double randomValue = r.nextDouble();
+
+
+        while (placedDestroyer1 < 4) {
             char possibilityOfPlacement1 = gameBoard[location1[x]][location1[y]];
-            if (possibilityOfPlacement1 == water && possibilityOfPlacement1 != destroyer1 && possibilityOfPlacement1 != destroyer2){
-                    gameBoard[location1[x]][location1[y]] = destroyer1;
+            if (possibilityOfPlacement1 == water && possibilityOfPlacement1 != battleShip && possibilityOfPlacement1 != destroyer2) {
+                gameBoard[location1[x]][location1[y]] = destroyer1;
             }
             placedDestroyer1++;
             location1[y]++;
         }
 
-        while (placedDestroyer2 < 4){
+        while (placedDestroyer2 < 4) {
             char possibilityOfPlacement2 = gameBoard[location2[x]][location2[y]];
-            if (possibilityOfPlacement2 == water && possibilityOfPlacement2 != destroyer1 && possibilityOfPlacement2 != destroyer2 ){
-                    gameBoard[location2[x]][location2[y]] = destroyer2;
+            if (possibilityOfPlacement2 == water && possibilityOfPlacement2 != battleShip && possibilityOfPlacement2 != destroyer2) {
+                gameBoard[location2[x]][location2[y]] = destroyer2;
             }
             placedDestroyer2++;
             location2[x]++;
         }
 
-        while (placedBattleShip < 5){
-            char possibilityOfPlacementB = gameBoard[locationB[x]][locationB[y]];
-            if (possibilityOfPlacementB == water && possibilityOfPlacementB != destroyer1 && possibilityOfPlacementB != destroyer2){
-                gameBoard[locationB[x]][locationB[y]] = battleShip;
+        if (randomValue >= 0.5) {
+            while (placedBattleShip < 5) {
+                char possibilityOfPlacementB = gameBoard[locationB[x]][locationB[y]];
+                if (possibilityOfPlacementB == water && possibilityOfPlacementB != destroyer1 && possibilityOfPlacementB != destroyer2) {
+                    gameBoard[locationB[x]][locationB[y]] = battleShip;
+                }
+                placedBattleShip++;
+                locationB[y]++;
             }
-            placedBattleShip++;
-            locationB[y]++;
-        }return gameBoard;
+        }
 
+        if (randomValue < 0.5) {
+            while (placedBattleShip < 5) {
+                char possibilityOfPlacementB = gameBoard[locationB[x]][locationB[y]];
+                if (possibilityOfPlacementB == water && possibilityOfPlacementB != destroyer1 && possibilityOfPlacementB != destroyer2) {
+                    gameBoard[locationB[x]][locationB[y]] = battleShip;
+                }
+                placedBattleShip++;
+                locationB[x]++;
+            }
+        }return gameBoard;
     }
+
 
     private static int[] generateBattleShipLocation(int gameBoardLenght) {
         int [] locationOfBattleShip = new int [4];
