@@ -15,28 +15,24 @@ public class BattleShipsGame {
         char battleShip = 'B';
         char ship = 's';    //test
 
-        System.out.println( );
-
         int destroyer1Life = 4;
         int destroyer2Life = 4;
         int battleShipLife = 5;
         int gameBoardLenght = 10;
-
         int shipsLife = destroyer1Life + destroyer2Life + battleShipLife;
 
-
+        System.out.println( );
         char [][] gameBoard = createGameBoard(gameBoardLenght, water, destroyer1, destroyer2, battleShip);
         printGameBoard(gameBoard, water, destroyer1, destroyer2, battleShip, ship);
-        int undetectedShips = shipsLife;
-        while(undetectedShips > 0){
+        while(shipsLife > 0){
             int[] guessLocation = getUserGuess(gameBoardLenght);
-            char locationViewUpdate = evaluateGuessAndGetTarget(guessLocation, gameBoard, water, hit, miss, destroyer1, destroyer2, battleShip, ship );
-            if (locationViewUpdate == hit){ // && locationViewUpdate != alreadyHit
-                undetectedShips--;
+            char locationViewUpdate = evaluateGuessAndGetTarget(guessLocation, gameBoard, water, hit, miss, destroyer1, destroyer2, battleShip,battleShipLife, destroyer1Life, destroyer2Life, ship );
+            if (shipsLife == 0){
+                System.out.print("You won");
             }
             gameBoardUpdate(gameBoard, guessLocation, locationViewUpdate);
             printGameBoard(gameBoard, water, destroyer1, destroyer2, battleShip, ship);
-        }System.out.print("You won");
+        }
     }
 
     private static char[][] gameBoardUpdate(char[][] gameBoard, int[] guessLocation, char locationViewUpdate) {
@@ -46,26 +42,49 @@ public class BattleShipsGame {
         return  gameBoard;
     }
 
-    private static char evaluateGuessAndGetTarget(int[] guessLocation, char[][] gameBoard, char water, char hit, char miss, char destroyer1, char destroyer2, char battleShip, char ship) {
-        String message;
+    private static char evaluateGuessAndGetTarget(int[] guessLocation, char[][] gameBoard, char water, char hit, char miss, char destroyer1, char destroyer2, char battleShip, int battleShipLife, int destroyer1Life, int destroyer2Life,char ship) {
+        String message = new String();
         int row = guessLocation[0];
         int col = guessLocation[1];
         char target = gameBoard[row][col];
 
-        if (target == destroyer1){
-            target = hit;
-            message = "Hit!";
-        } else if (target == destroyer2){
-            target = hit;
-            message = "Hit!";
-        }else if (target == battleShip){
-            target = hit;
-            message = "Hit!";
-        } else if (target == water){
+        if(target == hit){
+            message = "Already Hit!";
+        }
+
+        if (target == destroyer1 && target != destroyer2 && target != battleShip){
+            if(destroyer1Life == 0){
+                message = "Destroyer Sank!";
+            } else if (destroyer1Life > 0){
+                target = hit;
+                message = "Hit!";
+                destroyer1Life--;
+            }
+        }
+
+        if (target == destroyer2 && target != destroyer1 && target != battleShip){
+            if(destroyer1Life == 0){
+                message = "Destroyer Sank!";
+            } else if (destroyer2Life > 0){
+                target = hit;
+                message = "Hit!";
+                destroyer2Life--;
+            }
+        }
+
+        if (target == battleShip && target != destroyer1 && target != destroyer2){
+            if(battleShipLife == 0){
+                message = "BattleShip Sank!";
+            } else if (battleShipLife > 0){
+                target = hit;
+                message = "Hit!";
+                battleShipLife--;
+            }
+        }
+
+        if(target == water) {
             target = miss;
             message = "Miss!";
-        } else {
-            message = "Already hit!";
         }
         System.out.println(message);
         return  target;
@@ -114,10 +133,10 @@ public class BattleShipsGame {
         char [][] gameBoard = new char[gameBoardLength][gameBoardLength];
         for (char [] row : gameBoard){
             Arrays.fill(row, water);
-        } return placingDestroyer1(gameBoard, water, destroyer1, destroyer2, battleship);
+        } return placingShips(gameBoard, water, destroyer1, destroyer2, battleship);
     }
 
-    private static char[][] placingDestroyer1(char[][] gameBoard, char water,char destroyer1, char destroyer2, char battleShip) {
+    private static char[][] placingShips(char[][] gameBoard, char water,char destroyer1, char destroyer2, char battleShip) {
         int gameBoardLenght = gameBoard.length;
         int [] location1 = generateDestroyer1Location(gameBoardLenght -3);
         int [] location2 = generateDestroyer2Location(gameBoardLenght -3);
@@ -157,7 +176,6 @@ public class BattleShipsGame {
         }return gameBoard;
 
     }
-
 
     private static int[] generateBattleShipLocation(int gameBoardLenght) {
         int [] locationOfBattleShip = new int [4];
